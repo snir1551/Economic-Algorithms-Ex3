@@ -38,14 +38,15 @@ def share_minimal(player_a, player_b, division_player_a, division_player_b):
     vb1 = player_b[index_object1]
     vb2 = player_b[index_object2]
 
-
+    print(va1)
+    print(va2)
     while True:
         z = random.random()
         y = random.random()
-        if z/y > (va1/va2) and z/y < (vb1/vb2):
-            z_floor = math.floor(z * 10) / 10
-            y_floor = math.floor(y * 10) / 10
-            if y_floor <= division_player_a[index_object1] and z_floor <= division_player_b[index_object2] and y_floor > 0 and z_floor > 0:
+        z_floor = math.floor(z * 10) / 10
+        y_floor = math.floor(y * 10) / 10
+        if y_floor > 0 and z_floor > 0 and (va1 / va2) < z_floor/y_floor < (vb1 / vb2):
+            if y_floor <= division_player_a[index_object1] and z_floor <= division_player_b[index_object2]:
                 break
 
     temp_division_player_a = division_player_a.copy()
@@ -69,10 +70,10 @@ def check_pareto_improvement(player_a, player_b, division_player_a, division_pla
     old_sum_a = 0
     old_sum_b = 0
     for i in range(len(player_a)):
-        old_sum_a += player_a[i] * new_division_player_a[i]
-        old_sum_b += player_b[i] * new_division_player_b[i]
-        new_sum_a += player_a[i] * division_player_a[i]
-        new_sum_b += player_b[i] * division_player_b[i]
+        old_sum_a += player_a[i] * division_player_a[i]
+        old_sum_b += player_b[i] * division_player_b[i]
+        new_sum_a += player_a[i] * new_division_player_a[i]
+        new_sum_b += player_b[i] * new_division_player_b[i]
 
     if (new_sum_a > old_sum_a and new_sum_b >= old_sum_b) or (new_sum_b > old_sum_b and new_sum_a >= old_sum_a):
         txt = "old sum A = {} , new sum A = {} , old sum B = {} , new sum B {}"
